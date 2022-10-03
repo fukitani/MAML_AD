@@ -2,8 +2,8 @@
 import numpy as np
 import pickle
 #%%
-log_path = "./result"
-with open(log_path + '.pkl', 'rb') as f:
+log_path = "./result/"
+with open(log_path + 'train.pkl', 'rb') as f:
     log = pickle.load(f)
 #%%
 loss = np.array(log['test_loss'])
@@ -16,8 +16,8 @@ from scipy.stats import sem, t
 from scipy import mean
 import pickle
 #%%
-log_path = "./result"
-with open(log_path + '.pkl', 'rb') as f:
+log_path = "./result/"
+with open(log_path + 'train.pkl', 'rb') as f:
     log = pickle.load(f)
 loss = log['test_loss']
 acc = log['test_acc']

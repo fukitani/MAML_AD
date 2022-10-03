@@ -12,6 +12,7 @@ def conv_block(in_channels, out_channels):
     )
 
 def functional_conv(x, weights, biases, bn_weights, bn_biases):
+    #print(x.shape)
     x = F.conv2d(x, weights, biases, padding=1)
     x = F.batch_norm(x, running_mean=None, running_var=None, weight=bn_weights, bias=bn_biases, training=True)
     x = F.relu(x)
@@ -25,13 +26,26 @@ class MAML(nn.Module):
         self.conv2 = conv_block(32, 32)
         self.conv3 = conv_block(32, 32)
         self.conv4 = conv_block(32, 32)
-        self.logits = nn.Linear(800, 5)
+        # self.logits = nn.Linear(800, 2)
+        self.logits = nn.Linear(6272, 2)
+
+        # self.conv1 = conv_block(3, 224)
+        # self.conv2 = conv_block(224, 224)
+        # self.conv3 = conv_block(224, 224)
+        # self.conv4 = conv_block(224, 224)
+        # self.logits = nn.Linear(800, 2)
+        # self.conv1 = conv_block(3, 112)
+        # self.conv2 = conv_block(112, 112)
+        # self.conv3 = conv_block(112, 112)
+        # self.conv4 = conv_block(112, 112)
+        # self.logits = nn.Linear(800, 2)
 
     def forward(self, x):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
         x = self.conv4(x)
+        #print(x.shape)
         x = self.x.view(x.size(0), -1)
         return self.logits(x)
 
